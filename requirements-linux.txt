@@ -1,0 +1,21 @@
+git+https://git@github.com/hacknitive/utilscommon@v0.0.19
+git+https://git@github.com/hacknitive/utilsdatabase@v0.0.13
+git+https://git@github.com/hacknitive/utilslogging@v0.0.7
+git+https://git@github.com/hacknitive/utilsweb@v0.1.9
+
+fastapi==0.111.*
+beanie==1.26.*
+uvicorn==0.30.*
+pydantic==2.8.*
+orjson==3.10.*
+# pytz==2024.*
+# python-multipart==0.0.*
+pydantic-settings==2.3.*
+# pyjwt==2.8.*
+# pwdlib[argon2]==0.2.*
+# APScheduler==3.10.*
+# user-agent-parser==0.1.*
+# ffmpeg_python==0.2.*
+# asyncpg==0.29.*
+uvloop
+httptools

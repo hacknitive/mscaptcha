@@ -1,0 +1,23 @@
+# docker compose --env-file .env.x up
+services:
+  api:
+    env_file:
+      - "${ENV_FILE}"
+    ports:
+      - "${UVICORN_SERVER__PORT}:${UVICORN_SERVER__PORT}"
+    volumes:
+      - ./api:/app
+      - ./logs:/app/logs
+      - ./io:/app/io
+    restart: on-failure
+
+  redis:
+    env_file:
+      - "${ENV_FILE}"
+    ports:
+      - "${UVICORN_SERVER__PORT}:${UVICORN_SERVER__PORT}"
+    volumes:
+      - ./api:/app
+      - ./logs:/app/logs
+      - ./io:/app/io
+    restart: on-failure

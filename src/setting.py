@@ -2,6 +2,8 @@ from os import (
     sep,
     environ,
 )
+from dotenv import load_dotenv
+
 
 from pydantic_settings import (
     SettingsConfigDict,
@@ -27,43 +29,39 @@ BASE_DIR_PATH = base_dir_path_finder(
 )
 
 BASE_DIR_STR = str(BASE_DIR_PATH)
-ROOT_DIR_STR = str(BASE_DIR_PATH.parent)
 
 add_dir_to_env(path_=BASE_DIR_STR)
 
 IO_DIR_STR = create_dir(f"{BASE_DIR_STR}{sep}io")
-MOUNTED_DIR_STR = create_dir(f"{IO_DIR_STR}{sep}mounted")
 
 # ============================================================================================================ SETTINGS
-env_file_path = ROOT_DIR_STR + sep + environ["ENV_FILE"]
-
+env_file_path = BASE_DIR_STR + sep + environ["ENV_FILE"]
+load_dotenv(  # Sometimes python caches the .env, especially in vscode
+    dotenv_path = env_file_path,
+    override=True,
+)
 
 class _Settings(BaseSettings):
     model_config = SettingsConfigDict(
         env_file=env_file_path,
-        env_file_encoding='utf-8',
-        env_nested_delimiter='__',
+        env_file_encoding="utf-8",
+        env_nested_delimiter="__",
         env_ignore_empty=True,
-        env_parse_none_str='none',
+        env_parse_none_str="none",
         env_parse_enums=True,
-        extra='ignore',
+        extra="ignore",
+        load_dotenv=True,
+        override=True,
     )
 
     GENERAL: schema.SchemaGeneral
     UVICORN_SERVER: schema.SchemaUvicornServer
     LOGGING: schema.SchemaLogging
-    MONGODB: schema.SchemaDatabaseWithAuthDb
-    MONGODB_TEST: schema.SchemaDatabaseWithAuthDb
-    PAGINATION: schema.SchemaPagination
-    OTP: schema.SchemaOtp
-    KAVEH_NEGAR: schema.SchemaKavehNegar
-    TOKEN: schema.SchemaToken
-    PASSWORD: schema.SchemaPassword
-    GZIP_MIDDLEWARE: schema.SchemaGZipMiddleware
-    SUPER_USER: schema.SchemaUser
-    STREAM_SERVER: schema_.StreamServer
-    ASSETS: schema_.Asset
-    POSTGRESQL: schema.SchemaDatabase
+    REDIS: schema.SchemaDatabase
+    API_KEY: schema.SchemaApiKey
+    CAPTCHA: schema_.Captcha
+    CORS_MIDDLEWARE: schema.SchemaCorsMiddleware
+    PROCESS_TIME_MIDDLEWARE: schema.SchemaProcessTimeMiddleware
 
 
 SETTINGS = _Settings()
@@ -80,7 +78,7 @@ else:
 
 # ============================================================================================================== LOGGER
 prepare_logger_obj = PrepareLogger(
-    project_base_dir=MOUNTED_DIR_STR,
+    project_base_dir=BASE_DIR_STR,
     **SETTINGS.LOGGING.model_dump(by_alias=True),
 )
 logger = prepare_logger_obj.perform()
@@ -90,7 +88,3 @@ VERSION = generate_build_versioning(
     build_file_address=f"{IO_DIR_STR}{sep}buildnumber.version",
     version=SETTINGS.GENERAL.APPLICATION_VERSION,
 )
-
-# ============================================================================================================= VERSION
-logger.info("ENV_FILE: %s", env_file_path)
-logger.info("Run Mode: %s", RUN_MODE.value)

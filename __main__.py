@@ -7,7 +7,7 @@ if __name__ == "__main__":
         host=SETTINGS.UVICORN_SERVER.HOST,
         port=SETTINGS.UVICORN_SERVER.PORT,
         log_level=SETTINGS.UVICORN_SERVER.LOG_LEVEL.lower(),
-        proxy_headers=SETTINGS.UVICORN_SERVER.PROXY_HEADER,
+        proxy_headers=SETTINGS.UVICORN_SERVER.PROXY_HEADERS,
         forwarded_allow_ips=SETTINGS.UVICORN_SERVER.FORWARDED_ALLOW_IPS,
         reload=SETTINGS.UVICORN_SERVER.RELOAD,
         loop=SETTINGS.UVICORN_SERVER.LOOP,

@@ -131,5 +131,7 @@ note.txt
 *.moj*
 *.mine*
 .env*
+!.env.example
 old
 automatic_git_status_add_commit_push.sh
+io/

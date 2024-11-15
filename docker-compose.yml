@@ -1,23 +1,26 @@
 # docker compose --env-file .env.x up
 services:
   api:
+    build:
+      context: .
+      dockerfile: Dockerfile
     env_file:
       - "${ENV_FILE}"
     ports:
       - "${UVICORN_SERVER__PORT}:${UVICORN_SERVER__PORT}"
     volumes:
-      - ./api:/app
-      - ./logs:/app/logs
-      - ./io:/app/io
+      - .:/app
     restart: on-failure
+    depends_on:
+      - redis
 
   redis:
-    env_file:
-      - "${ENV_FILE}"
+    image: docker.arvancloud.ir/redis:6-alpine
+    command: redis-server --appendonly yes --requirepass ${REDIS__PASSWORD} --port ${REDIS__PORT}
+    environment:
+      - REDIS_PASSWORD=${REDIS__PASSWORD}
     ports:
-      - "${UVICORN_SERVER__PORT}:${UVICORN_SERVER__PORT}"
+      - "${REDIS__PORT}:${REDIS__PORT}"
     volumes:
-      - ./api:/app
-      - ./logs:/app/logs
-      - ./io:/app/io
-    restart: on-failure
+      - ./redis_data:/data
+    restart: unless-stopped

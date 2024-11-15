@@ -2,8 +2,9 @@ from ...message import messages
 
 MESSAGE_SUCCESS = str(messages.success_message())
 MESSAGE_FAILURE = str(messages.failure_message())
-MESSAGE_SERVER_ERROR = str(messages.server_error())
-MESSAGE_UNAUTHORIZED_USER = str(messages.unauthorized_user())
-MESSAGE_INACTIVE_USER = str(messages.inactive_user())
-MESSAGE_ALREADY_REGISTERED_USER = str(messages.already_registered_user())
-MESSAGE_NOT_ALLOWED = str(messages.not_allowed())
+
+MESSAGE_UNAUTHORIZED_SERVICE = str(messages.unauthorized_service())
+
+MESSAGE_INVALID_OR_EXPIRED_CAPTCHA = str(messages.invalid_or_expired_captcha())
+MESSAGE_CAPTCHA_SUCCEDED = str(messages.captcha_succeeded())
+MESSAGE_CAPTCHA_FAILED = str(messages.captcha_failed())

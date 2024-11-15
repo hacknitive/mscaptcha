@@ -24,7 +24,7 @@ async def verify(
         )
 
     await redis.delete(model.code_pid)  # Prevent replay attacks
-    if not model.case_sensitive:
+    if model.case_sensitive:
         code = code
         user_input = model.user_input
     else:

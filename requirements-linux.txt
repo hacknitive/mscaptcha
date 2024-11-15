@@ -9,6 +9,7 @@ orjson==3.10.*
 pydantic-settings==2.6.*
 redis==5.2.*
 captcha==0.6.*
+pytz==2024.2
 uvloop
 httptools
 

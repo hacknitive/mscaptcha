@@ -1,4 +1,4 @@
-git+https://git@github.com/hacknitive/utilscommon@v0.0.24
+git+https://git@github.com/hacknitive/utilscommon@v0.0.25
 git+https://git@github.com/hacknitive/utilslogging@v0.0.7
 git+https://git@github.com/hacknitive/utilsweb@v0.1.9
 
@@ -7,6 +7,8 @@ uvicorn==0.32.*
 pydantic==2.9.*
 orjson==3.10.*
 pydantic-settings==2.6.*
+redis==5.2.*
+captcha==0.6.*
 uvloop
 httptools
 
